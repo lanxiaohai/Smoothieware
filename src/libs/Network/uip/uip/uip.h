@@ -514,8 +514,13 @@ void uip_unlisten(u16_t port);
  * or NULL if no connection could be allocated.
  *
  */
+#ifdef __cplusplus
+extern "C" {
+#endif
 struct uip_conn *uip_connect(uip_ipaddr_t *ripaddr, u16_t port);
-
+#ifdef __cplusplus
+}
+#endif
 
 
 /**

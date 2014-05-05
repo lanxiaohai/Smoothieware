@@ -268,7 +268,7 @@ void USBSerial::on_main_loop(void *argument)
         {
             attached = true;
             THEKERNEL->streams->append_stream(this);
-            writeBlock((const uint8_t *) "Smoothie\nok\n", 12);
+            writeBlock((const uint8_t *) "Smoothie ok\r\n", 13);
         }
         else
         {
@@ -285,7 +285,7 @@ void USBSerial::on_main_loop(void *argument)
         while (available())
         {
             char c = _getc();
-            if( c == '\n' || c == '\r')
+            if( c == '\n')
             {
                 struct SerialMessage message;
                 message.message = received;
@@ -294,7 +294,7 @@ void USBSerial::on_main_loop(void *argument)
                 THEKERNEL->call_event(ON_CONSOLE_LINE_RECEIVED, &message );
                 return;
             }
-            else
+            else if( c != '\r')
             {
                 received += c;
             }
